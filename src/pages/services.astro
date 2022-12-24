@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { contentfulClient, Service } from '../lib/contentful';
+
+const entries = await contentfulClient.getEntries<Service>({
+  content_type: 'service',
+});
+
+const services = entries.items.map((item) => item.fields);
+---
+
+<Layout>
+  <div class='main'>
+    <h1>Services</h1>
+    <ul>
+      {
+        services.map((service) => (
+          <li>
+            <a href={`/services/${service.name}`}>{service.name}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>

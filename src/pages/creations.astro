@@ -1,0 +1,26 @@
+---
+import CreationRow from '../components/CreationRow.astro';
+import CreationCard from '../components/CreationCard.astro';
+import Layout from '../layouts/Layout.astro';
+import { contentfulClient, Creation } from '../lib/contentful';
+
+const entries = await contentfulClient.getEntries<Creation>({
+  content_type: 'creations',
+});
+
+const creations = entries.items.map((item) => item.fields);
+---
+
+<Layout>
+  <title slot='head'>Mes créations</title>
+  <div class='main h-full grid place-items-center'>
+    <div class='flex gap-4 justify-center'>
+      <div class='w-1/2'>
+        {creations[0] && <CreationCard {...creations[0]} />}
+      </div>
+      <div class='flex flex-col w-1/2 gap-4'>
+        {creations.map((creation) => <CreationRow {...creation} />)}
+      </div>
+    </div>
+  </div>
+</Layout>

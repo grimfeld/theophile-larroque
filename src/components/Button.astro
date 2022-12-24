@@ -1,0 +1,26 @@
+---
+interface Props {
+  isSocial?: boolean;
+  className?: string;
+}
+
+const { isSocial, className } = Astro.props;
+---
+
+<button class={[isSocial ? 'social' : '', className].join(' ')}>
+  <slot />
+</button>
+
+<style>
+  button {
+    border: solid 1px black;
+    box-shadow: 5px 5px 0 black;
+    padding: 10px 25px;
+  }
+
+  button.social {
+    background: #102438;
+    color: white;
+    padding: 10px !important;
+  }
+</style>

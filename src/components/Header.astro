@@ -1,25 +1,53 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../config';
+import { contentfulClient } from '../lib/contentful';
+
+const logo = await contentfulClient.getAsset('241NiEjTiQmWbzToLXcdEt');
+console.log(logo);
 ---
 
-<header>
-	<h2>
-		{SITE_TITLE}
-	</h2>
-	<nav>
-		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/blog">Blog</HeaderLink>
-		<HeaderLink href="/about">About</HeaderLink>
-		<HeaderLink href="https://twitter.com/astrodotbuild" target="_blank">Twitter</HeaderLink>
-		<HeaderLink href="https://github.com/withastro/astro" target="_blank">GitHub</HeaderLink>
-	</nav>
+<header class='flex items-center justify-center py-16 gap-4'>
+  <span>Whale</span>
+  <img src={logo.fields.file.url} alt='Logo' class='w-1/6' />
+  <span>Lutherie</span>
 </header>
+
 <style>
-	header {
-		margin: 0em 0 2em;
-	}
-	h2 {
-		margin: 0.5em 0;
-	}
+  header {
+    background: linear-gradient(
+      to bottom,
+      #111827 0%,
+      #111827 60%,
+      #ffead2 60%,
+      #ffead2 100%
+    );
+  }
+
+  span {
+    /* background: -webkit-linear-gradient(
+      to bottom,
+      #ffead2 0%,
+      #ffead2 50%,
+      #111827 50%,
+      #111827 1000%
+    );
+    background: -moz-linear-gradient(
+      to bottom,
+      #ffead2 0%,
+      #ffead2 50%,
+      #111827 50%,
+      #111827 1000%
+    );
+    background: linear-gradient(
+      to bottom,
+      #ffead2 0%,
+      #ffead2 50%,
+      #111827 50%,
+      #111827 1000%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    @apply text-white font-bold text-7xl font-serif text-light;
+  }
 </style>

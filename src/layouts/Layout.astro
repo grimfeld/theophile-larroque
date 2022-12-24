@@ -1,0 +1,38 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import NavBar from '../components/NavBar.astro';
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+Pro:wght@300;400;700;900&display=swap'
+      rel='stylesheet'
+    />
+    <slot name='head' />
+  </head>
+  <body class='font-sans flex flex-col justify-between h-screen'>
+    <!-- <Header /> -->
+    <main class='flex-grow relative flex flex-col'>
+      <NavBar />
+      <div class='flex-grow'>
+        <slot />
+      </div>
+    </main>
+    <Footer />
+    <style is:global>
+      /* Global styles */
+      .main {
+        @apply w-full max-w-7xl m-auto px-8 xl:px-0;
+      }
+    </style>
+  </body>
+</html>

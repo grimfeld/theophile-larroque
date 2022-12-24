@@ -1,4 +1,4 @@
-import contentful from 'contentful';
+import contentful, { Asset } from 'contentful';
 import type { Document } from '@contentful/rich-text-types';
 
 export interface Service {
@@ -8,9 +8,10 @@ export interface Service {
 }
 
 export interface Creation {
-  title: string;
+  name: string;
   description: Document;
-  image: string;
+  images: Asset[];
+  slug: string;
   date: string;
 }
 
@@ -19,6 +20,17 @@ export interface Article {
   content: Document;
   date: string;
   slug: string;
+}
+
+export interface Service {
+  name: string;
+  price: number;
+  description: Document;
+}
+
+export interface FAQ {
+  question: string;
+  answer: Document;
 }
 
 export const contentfulClient = contentful.createClient({
