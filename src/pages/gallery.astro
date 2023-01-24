@@ -1,0 +1,99 @@
+---
+import { log } from 'astro/dist/core/logger/core';
+import Layout from '../layouts/Layout.astro';
+import { contentfulClient } from '../lib/contentful';
+
+// Get all assets
+const assets = await contentfulClient.getAssets();
+// Filter assets by tag excluding nogallery tag
+const medias = assets.items.filter((asset) => {
+  const tags = asset.metadata.tags;
+  if (tags.length === 0) {
+    return true;
+  } else {
+    asset.metadata.tags.forEach((tag) => {
+      if (tag.sys.id === 'nogallery') {
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }
+});
+// Extract urls
+const images = medias.map((media) => {
+  return {
+    title: media.fields.file.fileName,
+    url: media.fields.file.url,
+  };
+});
+
+const cols = 5;
+const rows = Math.floor(images.length / cols);
+const col1 = images.slice(0, rows);
+const col2 = images.slice(rows, rows * 2);
+const col3 = images.slice(rows * 2, rows * 3);
+const col4 = images.slice(rows * 3, rows * 4);
+const col5 = images.slice(rows * 4, rows * 5);
+---
+
+<Layout>
+  <title slot='head'>Galerie</title>
+  <div class='flex bg-dark'>
+    <div class='flex flex-col flex-grow'>
+      {
+        col1.map((image) => (
+          <img
+            src={image.url}
+            alt={image.title}
+            class='border-[3px] border-black'
+          />
+        ))
+      }
+    </div>
+    <div class='flex flex-col flex-grow'>
+      {
+        col2.map((image) => (
+          <img
+            src={image.url}
+            alt={image.title}
+            class='border-[3px] border-black'
+          />
+        ))
+      }
+    </div>
+    <div class='flex flex-col flex-grow'>
+      {
+        col3.map((image) => (
+          <img
+            src={image.url}
+            alt={image.title}
+            class='border-[3px] border-black'
+          />
+        ))
+      }
+    </div>
+    <div class='flex flex-col flex-grow'>
+      {
+        col4.map((image) => (
+          <img
+            src={image.url}
+            alt={image.title}
+            class='border-[3px] border-black'
+          />
+        ))
+      }
+    </div>
+    <div class='flex flex-col flex-grow'>
+      {
+        col5.map((image) => (
+          <img
+            src={image.url}
+            alt={image.title}
+            class='border-[3px] border-black'
+          />
+        ))
+      }
+    </div>
+  </div>
+</Layout>
