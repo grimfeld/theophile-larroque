@@ -1,23 +1,13 @@
 ---
 import { contentfulClient } from '../lib/contentful';
 import Button from './Button.astro';
+import Menu from "./Menu.astro"
 
 const logo = await contentfulClient.getAsset('1pstZEGrE1qiwL376qGDc1');
----
 
-<!-- <nav class='flex items-center justify-center py-8 sticky top-0 gap-16 main'>
-  <a href='/'>Accueil</a>
-  <a href='/creations'>Créations</a>
-  <div class='flex items-center justify-around'>
-    <span class='text-xl font-serif font-bold'>Whale</span>
-    <img src={logo.fields.file.url} alt='Logo' class='w-32' />
-    <span class='text-xl font-serif font-bold'>Lutherie</span>
-  </div>
-  <a href='/contact'>Contact</a>
-  <a href='/services'>Services</a>
-</nav> -->
+---
 <nav class='border-b-[3px] border-black'>
-  <div class='main flex items-center justify-between py-8 sticky top-0 gap-16'>
+  <div class='main items-center justify-between py-8 sticky top-0 gap-16 hidden lg:flex'>
     <img src={logo.fields.file.url} alt='logo' class='w-12' />
     <a href='/services'>Prestations</a>
     <a href='/about'>L'atelier</a>
@@ -31,4 +21,18 @@ const logo = await contentfulClient.getAsset('1pstZEGrE1qiwL376qGDc1');
       <img src='/instagram.svg' alt='instagram' />
     </Button>
   </div>
+  <div class="main flex lg:hidden items-center justify-between py-8 sticky top-0">
+    <img src={logo.fields.file.url} alt='logo' class='w-12' />
+    <img src="/menu.svg" alt="Menu">
+    <Menu />
+  </div>
 </nav>
+
+<script>
+  const menu = document.querySelector('img[alt="Menu"]');
+  let isOpen = false;
+
+  menu?.addEventListener('click', () => {
+    isOpen = !isOpen;
+  });
+</script>

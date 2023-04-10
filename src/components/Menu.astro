@@ -1,0 +1,15 @@
+---
+import Button from "./Button.astro"
+
+const { isOpen } = Astro.props
+---
+<nav class={["absolute top-0 bottom-0 right-0 left-16 flex-col bg-white h-screen p-8 gap-y-8", isOpen ? "flex" : "hidden"].join(' ')}>
+  <a href="/services">Prestations</a>
+  <a href="/about">L'atelier</a>
+  <a href="/contact">Contact</a>
+  <a href="/creations">Créations</a>
+  <a href="/gallery">Galerie</a>
+  <Button isSocial className={"flex items-center justify-center"}>
+    <img src="/instagram.svg" alt="instagram">
+  </Button>
+</nav>
